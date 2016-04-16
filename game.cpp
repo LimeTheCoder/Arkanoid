@@ -25,8 +25,24 @@ Game::Game() :
         AbstractGame(WINDOW_WIDTH, WINDOW_HEIGHT, TITLE, TIME_PER_FRAME),
         ball(BALL_START_COORD_X, BALL_START_COORD_Y, BALL_RADIUS, BALL_VELOCITY),
         paddle(PADDLE_START_COORD_X, PADDLE_START_COORD_Y,
-               PADDLE_WIDTH, PADDLE_HEIGHT) { }
+               PADDLE_WIDTH, PADDLE_HEIGHT, PADDLE_VELOCITY)
+{
+    default_command = new DefaultCommand();
+    button_left = new MoveLeftCommand();
+    button_right = new MoveRightCommand();
+    current_command = default_command;
+}
 
+Game::~Game() {
+    if(button_left != nullptr)
+        delete button_left;
+
+    if(button_right != nullptr)
+        delete button_right;
+
+    if(default_command != nullptr)
+        delete default_command;
+}
 
 void Game::processEvents() {
 	sf::Event event;
@@ -45,12 +61,12 @@ void Game::processEvents() {
 
 
     if(sf::Keyboard::isKeyPressed(BUTTON_LEFT) && paddle.getLeft() > 0)
-        paddle.setVelocityX(-PADDLE_VELOCITY);
+        current_command = button_left;
     else if(sf::Keyboard::isKeyPressed(BUTTON_RIGHT) &&
             paddle.getRight() < WINDOW_WIDTH)
-        paddle.setVelocityX(PADDLE_VELOCITY);
+        current_command = button_right;
     else
-        paddle.setVelocityX(0.f);
+        current_command = default_command;
 }
 
 
@@ -65,6 +81,9 @@ void Game::update() {
 	else if(ball.getBottom() > WINDOW_HEIGHT)
 		ball.setVelocityY(-BALL_VELOCITY);
 
+    if(current_command != nullptr)
+        current_command->Execute(paddle);
+    
 	ball.update();
     paddle.update();
 }

@@ -9,11 +9,6 @@ GameObject::GameObject(sf::Vector2f coords, sf::Shape *form,
     shape->setFillColor(color);
 }
 
-GameObject::~GameObject() {
-    if(shape != nullptr)
-        delete shape;
-}
-
 void GameObject::update() {
     shape->move(velocity);
 }

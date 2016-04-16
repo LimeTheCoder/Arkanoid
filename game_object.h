@@ -9,8 +9,6 @@ public:
     GameObject(sf::Vector2f coords, sf::Shape *shape,
                sf::Vector2f velocity, const sf::Color &color);
 
-    ~GameObject();
-
     void update();
 
     sf::Vector2f getPosition();
