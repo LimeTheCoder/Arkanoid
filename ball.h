@@ -1,35 +1,21 @@
 #ifndef BALL_H
 #define BALL_H
 
-#include <SFML/Graphics.hpp>
+#include "game_object.h"
 
-const float BALL_VELOCITY = 5.f;
-
-class Ball : public sf::Drawable {
+class Ball : public GameObject {
 public:
-	Ball(float start_x, float start_y);
-	void update();
+	Ball(float start_x, float start_y, float radius, float ball_velocity);
 
-	sf::Vector2f getPosition();
-	void setPosition(sf::Vector2f &pos);
+	virtual float getLeft();
+	virtual float getRight();
+	virtual float getTop();
+	virtual float getBottom();
 
-	sf::Vector2f getVelocity();
-	void setVelocity(sf::Vector2f &v);
-
-	void setVelocityX(float vx);
-	void setVelocityY(float vy);
-
-	float getLeft();
-	float getRight();
-	float getTop();
-	float getBottom();
-
+    float getRadius();
+    void setRadius(float radius);
 private:
-	sf::CircleShape shape;
-	const float radius;
-	sf::Vector2f velocity;
-
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
 
 

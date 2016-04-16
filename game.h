@@ -3,6 +3,10 @@
 
 #include "ball.h"
 
+extern const float BALL_VELOCITY;
+extern const float BALL_RADIUS;
+extern const float BALL_START_COORD_X;
+extern const float BALL_START_COORD_Y;
 
 class AbstractGame {
 public:

@@ -1,59 +1,37 @@
 #include "ball.h"
 
-Ball::Ball(float start_x, float start_y) : radius(10.f),
-	velocity(-BALL_VELOCITY, -BALL_VELOCITY)
+Ball::Ball(float start_x, float start_y, float radius, float ball_velocity) :
+          GameObject(sf::Vector2f(start_x, start_y), new sf::CircleShape(),
+                     sf::Vector2f(ball_velocity, ball_velocity), sf::Color::Red)
 {
-	shape.setPosition(800 - start_x, 600 - start_y);
-	shape.setRadius(radius);
-	shape.setFillColor(sf::Color::Red);
-	shape.setOrigin(radius, radius);
+    shape->setOrigin(radius, radius);
+    setRadius(radius);
 }
 
-void Ball::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-	target.draw(shape, states);
+float Ball::getRadius() {
+    return dynamic_cast<sf::CircleShape*>(shape)->getRadius();
 }
 
-void Ball::update() { 
-	shape.move(velocity);
-}
-
-sf::Vector2f Ball::getPosition() {
-    return shape.getPosition();
-}
-
-void Ball::setPosition(sf::Vector2f &pos) {
-    shape.setPosition(pos);
-}
-
-
-sf::Vector2f Ball::getVelocity() {
-    return velocity;
-}
-
-void Ball::setVelocity(sf::Vector2f &v) {
-    velocity = v;
-}
-
-void Ball::setVelocityX(float vx) {
-    velocity.x = vx;
-}
-
-void Ball::setVelocityY(float vy) {
-    velocity.y = vy;
+void Ball::setRadius(float radius) {
+    dynamic_cast<sf::CircleShape*>(shape)->setRadius(radius);
 }
 
 float Ball::getLeft() {
-    return getPosition().x - shape.getRadius();
+    return getPosition().x - getRadius();
 }
 
 float Ball::getRight() {
-    return getPosition().x + shape.getRadius();
+    return getPosition().x + getRadius();
 }
 
 float Ball::getTop() {
-    return getPosition().y - shape.getRadius();
+    return getPosition().y - getRadius();
 }
 
 float Ball::getBottom() {
-    return getPosition().y + shape.getRadius();
+    return getPosition().y + getRadius();
+}
+
+void Ball::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    target.draw(*dynamic_cast<sf::CircleShape*>(shape), states);
 }

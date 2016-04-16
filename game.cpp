@@ -1,5 +1,10 @@
 #include "game.h"
 
+const float BALL_VELOCITY = 8.f;
+const float BALL_RADIUS = 10.f;
+const float BALL_START_COORD_X = 50.f;
+const float BALL_START_COORD_Y = 50.f;
+
 AbstractGame::AbstractGame(unsigned int window_width, unsigned int window_height,
  	sf::String title, sf::Time time_per_frame)
 	:window(sf::VideoMode(window_width, window_height), title), TimePerFrame(time_per_frame) { }
@@ -26,9 +31,9 @@ void AbstractGame::run() {
 	/*** Own game implementation part ***/
 
 Game::Game(unsigned int window_width, unsigned int window_height,
- 	sf::String title, sf::Time time_per_frame) 
-		: AbstractGame(window_width, window_height, title, time_per_frame),
-			ball(50.f, 50.f) { }
+ 	sf::String title, sf::Time time_per_frame) :
+        AbstractGame(window_width, window_height, title, time_per_frame),
+        ball(BALL_START_COORD_X, BALL_START_COORD_Y, BALL_RADIUS, BALL_VELOCITY) { }
 
 
 void Game::processEvents() {
