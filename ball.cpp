@@ -8,6 +8,11 @@ Ball::Ball(float start_x, float start_y, float radius, float ball_velocity) :
     setRadius(radius);
 }
 
+Ball::~Ball() {
+    if(shape != nullptr)
+        delete dynamic_cast<sf::CircleShape*>(shape);
+}
+
 float Ball::getRadius() {
     return dynamic_cast<sf::CircleShape*>(shape)->getRadius();
 }

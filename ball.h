@@ -6,11 +6,12 @@
 class Ball : public GameObject {
 public:
 	Ball(float start_x, float start_y, float radius, float ball_velocity);
+    ~Ball();
 
-	virtual float getLeft();
-	virtual float getRight();
-	virtual float getTop();
-	virtual float getBottom();
+	float getLeft();
+	float getRight();
+	float getTop();
+	float getBottom();
 
     float getRadius();
     void setRadius(float radius);
