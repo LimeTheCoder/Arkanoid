@@ -20,6 +20,8 @@ public:
     float getBottom();
 
     void setSize(const sf::Vector2f &size);
+private:
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
 
 #endif

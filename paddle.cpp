@@ -43,14 +43,6 @@ float Paddle::getBottom() {
     return getPosition().y + getHeight() / 2.f;
 }
 
-void Paddle::update()  {
-    shape.move(velocity);
-
-    if(Keyboard::isKeyPressed(Keyboard::Key::Left) && left() > 0)
-        velocity.x = -paddleVelocity;
-    else if(Keyboard::isKeyPressed(Keyboard::Key::Right) &&
-            right() < windowWidth)
-        velocity.x = paddleVelocity;
-    else
-        velocity.x = 0;
+void Paddle::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    target.draw(*dynamic_cast<sf::RectangleShape*>(shape), states);
 }
