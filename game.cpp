@@ -8,7 +8,6 @@ AbstractGame::AbstractGame(unsigned int window_width, unsigned int window_height
 void AbstractGame::run() {
 	sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
-	double remainder = 0.0;
 	
 	while (window.isOpen()) {
     	timeSinceLastUpdate += clock.restart();
@@ -20,12 +19,11 @@ void AbstractGame::run() {
 	        timeSinceLastUpdate -= TimePerFrame;
 	    }
 
-	    remainder = timeSinceLastUpdate.asMicroseconds() / TimePerFrame.asMicroseconds();
-	   	render(remainder);
+	   	render();
 	}
 }
 
-	/*** Game implementation part ***/
+	/*** Own game implementation part ***/
 
 Game::Game(unsigned int window_width, unsigned int window_height,
  	sf::String title, sf::Time time_per_frame) 
@@ -54,11 +52,21 @@ void Game::processEvents() {
 
 
 void Game::update() {
+	if(ball.getLeft() < 0)
+		ball.setVelocityX(BALL_VELOCITY);
+	else if(ball.getRight() > window.getSize().x)
+		ball.setVelocityX(-BALL_VELOCITY);
+
+	if(ball.getTop() < 0)
+		ball.setVelocityY(BALL_VELOCITY);
+	else if(ball.getBottom() > window.getSize().y)
+		ball.setVelocityY(-BALL_VELOCITY);
+
 	ball.update();
 }
 
 
-void Game::render(double remainder) {
+void Game::render() {
 	window.clear();
 	window.draw(ball);
     window.display();

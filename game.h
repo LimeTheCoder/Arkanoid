@@ -11,7 +11,7 @@ public:
 		sf::String title, sf::Time time_per_frame);
 
 protected:
-	virtual void render(double) = 0;
+	virtual void render() = 0;
 	virtual void update() = 0;
 	virtual void processEvents() = 0;
 	
@@ -25,7 +25,7 @@ public:
 	Game(unsigned int window_width, unsigned int window_height,
 		sf::String title = "Arkanoid", sf::Time time_per_frame = sf::seconds(1.f / 60.f));
 
-	void render(double);
+	void render();
 	void update();
 	void processEvents();
 
