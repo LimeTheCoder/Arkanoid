@@ -6,9 +6,7 @@
 
 class Paddle : public GameObject {
 public:
-    Paddle(float start_x, float start_y, float width, float height,
-                   float paddle_velocity);
-
+    Paddle(float start_x, float start_y, float width, float height);
     ~Paddle();
 
     float getWidth();

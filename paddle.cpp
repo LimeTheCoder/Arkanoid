@@ -1,9 +1,8 @@
 #include "paddle.h"
 
-Paddle::Paddle(float start_x, float start_y, float width, float height,
-               float paddle_velocity) :
+Paddle::Paddle(float start_x, float start_y, float width, float height) :
         GameObject(sf::Vector2f(start_x, start_y), new sf::RectangleShape(),
-                   sf::Vector2f(paddle_velocity, paddle_velocity), sf::Color::Magenta)
+                   sf::Vector2f(0.f, 0.f), sf::Color::Magenta)
 {
 
     setSize(sf::Vector2f(width, height));

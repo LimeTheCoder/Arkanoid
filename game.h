@@ -21,6 +21,9 @@ extern const float PADDLE_HEIGHT;
 extern const float PADDLE_START_COORD_X;
 extern const float PADDLE_START_COORD_Y;
 
+extern const sf::Keyboard::Key BUTTON_LEFT;
+extern const sf::Keyboard::Key BUTTON_RIGHT;
+
 class Game : public AbstractGame {
 public:
 	Game();
