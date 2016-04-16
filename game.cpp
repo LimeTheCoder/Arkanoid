@@ -44,6 +44,23 @@ Game::~Game() {
         delete default_command;
 }
 
+bool Game::isIntersects(GameObject& first, GameObject& second)  {
+    return first.getRight() >= second.getLeft() && first.getLeft() <= second.getRight() &&
+           first.getBottom() >= second.getTop() && first.getTop() <= second.getBottom();
+}
+
+void Game::handlePaddleBallCollision() {
+
+    if(!isIntersects(paddle, ball)) return;
+
+    ball.setVelocityY(-BALL_VELOCITY);
+
+    if(ball.getPosition().x < paddle.getPosition().x)
+        ball.setVelocityX(-BALL_VELOCITY);
+    else
+        ball.setVelocityX(BALL_VELOCITY);
+}
+
 void Game::processEvents() {
 	sf::Event event;
 
@@ -83,7 +100,9 @@ void Game::update() {
 
     if(current_command != nullptr)
         current_command->Execute(paddle);
-    
+
+    handlePaddleBallCollision();
+
 	ball.update();
     paddle.update();
 }

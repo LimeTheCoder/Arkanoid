@@ -27,20 +27,24 @@ extern const sf::Keyboard::Key BUTTON_RIGHT;
 
 class Game : public AbstractGame {
 public:
-	Game();
+    Game();
     ~Game();
 
-	void render();
-	void update();
-	void processEvents();
+    void render();
+    void update();
+    void processEvents();
 
 private:
-	Ball ball;
+    Ball ball;
     Paddle paddle;
     Command *current_command;
     Command *button_left;
     Command *button_right;
     Command *default_command;
+
+    bool isIntersects(GameObject& first, GameObject& second);
+    void handlePaddleBallCollision();
+
 };
 
 #endif
