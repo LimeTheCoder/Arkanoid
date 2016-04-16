@@ -17,30 +17,6 @@ const float PADDLE_HEIGHT = 20.f;
 const float PADDLE_START_COORD_X = WINDOW_WIDTH / 2.f;
 const float PADDLE_START_COORD_Y = WINDOW_HEIGHT - 30.f;
 
-AbstractGame::AbstractGame(unsigned int window_width, unsigned int window_height,
- 	sf::String title, sf::Time time_per_frame)
-	:window(sf::VideoMode(window_width, window_height), title), TimePerFrame(time_per_frame) { }
-
-
-void AbstractGame::run() {
-	sf::Clock clock;
-    sf::Time timeSinceLastUpdate = sf::Time::Zero;
-	
-	while (window.isOpen()) {
-    	timeSinceLastUpdate += clock.restart();
-
-    	processEvents();
-
-	    while(timeSinceLastUpdate > TimePerFrame) {
-	        update();
-	        timeSinceLastUpdate -= TimePerFrame;
-	    }
-
-	   	render();
-	}
-}
-
-	/*** Own game implementation part ***/
 
 Game::Game() :
         AbstractGame(WINDOW_WIDTH, WINDOW_HEIGHT, TITLE, TIME_PER_FRAME),
