@@ -3,9 +3,8 @@
 Paddle::Paddle(float start_x, float start_y, float width, float height,
                float speed) :
         MovableObject(sf::Vector2f(start_x, start_y), new sf::RectangleShape(),
-                   sf::Vector2f(0.f, 0.f), sf::Color::Magenta)
+                      speed, sf::Vector2f(0.f, 0.f), sf::Color::Magenta)
 {
-    move_rate = speed;
     setSize(sf::Vector2f(width, height));
     dynamic_cast<sf::RectangleShape*>(shape)->setOrigin(width / 2.f, height / 2.f);
 }
@@ -54,6 +53,18 @@ void Paddle::moveRight() {
 
 void Paddle::stayAtPlace() {
     setVelocityX(0.f);
+}
+
+void Paddle::handleBallCollision(Ball &ball) {
+
+    if(!isIntersects(ball)) return;
+
+    if(ball.getPosition().x < getPosition().x)
+        ball.setVelocityX(-ball.getMoveRate());
+    else
+        ball.setVelocityX(ball.getMoveRate());
+
+    ball.setVelocityY(-ball.getMoveRate());
 }
 
 void Paddle::draw(sf::RenderTarget& target, sf::RenderStates states) const {

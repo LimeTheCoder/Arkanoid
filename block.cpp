@@ -52,6 +52,28 @@ void Block::onHint() {
 
 }
 
+void Block::handleBallCollision(Ball &ball) {
+    if(!isIntersects(ball)) return;
+
+    onHint();
+
+    float overlapLeft = ball.getRight() - getLeft();
+    float overlapRight = getRight() - ball.getLeft();
+    float overlapTop= ball.getBottom() - getTop();
+    float overlapBottom = getBottom() - ball.getTop();
+
+    bool ballFromLeft = std::abs(overlapLeft) < std::abs(overlapRight);
+    bool ballFromTop = std::abs(overlapTop) < std::abs(overlapBottom);
+
+    float minOverlapX = ballFromLeft ? overlapLeft : overlapRight;
+    float minOverlapY = ballFromTop ? overlapTop : overlapBottom;
+
+    if(std::abs(minOverlapX) < std::abs(minOverlapY))
+        ball.setVelocityX(ballFromLeft ? -ball.getMoveRate() : ball.getMoveRate());
+    else
+        ball.setVelocityY(ballFromTop ? -ball.getMoveRate() : ball.getMoveRate());
+}
+
 void Block::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(*dynamic_cast<sf::RectangleShape*>(shape), states);
 }

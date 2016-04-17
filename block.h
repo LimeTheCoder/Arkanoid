@@ -1,7 +1,7 @@
 #ifndef BLOCK_H
 #define BLOCK_H
 
-#include "game_object.h"
+#include "ball.h"
 
 class Block : public GameObject {
 public:
@@ -20,6 +20,8 @@ public:
 
     bool isAlive() const;
     void onHint();
+
+    void handleBallCollision(Ball &ball);
 
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;

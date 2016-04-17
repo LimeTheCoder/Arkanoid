@@ -15,6 +15,7 @@ public:
 
     float getRadius() const;
     void setRadius(float radius);
+
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

@@ -1,7 +1,7 @@
 #include "ball.h"
 
 Ball::Ball(float start_x, float start_y, float radius, float ball_velocity) :
-        MovableObject(sf::Vector2f(start_x, start_y), new sf::CircleShape(),
+        MovableObject(sf::Vector2f(start_x, start_y), new sf::CircleShape(), ball_velocity,
                      sf::Vector2f(ball_velocity, ball_velocity), sf::Color::Red)
 {
     shape->setOrigin(radius, radius);

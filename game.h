@@ -2,7 +2,6 @@
 #define GAME_H
 
 #include "absract_game.h"
-#include "ball.h"
 #include "paddle.h"
 #include "command.h"
 #include "block.h"
@@ -50,8 +49,6 @@ private:
     Command *default_command;
 
    std::vector<Block*> blocks;
-
-    void handlePaddleBallCollision();
 
 };
 

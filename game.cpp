@@ -5,17 +5,16 @@ const float WINDOW_HEIGHT = 600.f;
 const sf::String TITLE = "Arkanoid";
 const sf::Time TIME_PER_FRAME = sf::seconds(1.f / 60.f);
 
-const float BALL_VELOCITY = 8.f;
-const float BALL_RADIUS = 9.f;
-const float BALL_START_COORD_X = 50.f;
-const float BALL_START_COORD_Y = 50.f;
-
-
-const float PADDLE_VELOCITY = 6.f;
+const float PADDLE_VELOCITY = 5.f;
 const float PADDLE_WIDTH = 60.f;
 const float PADDLE_HEIGHT = 15.f;
 const float PADDLE_START_COORD_X = WINDOW_WIDTH / 2.f;
 const float PADDLE_START_COORD_Y = WINDOW_HEIGHT - 30.f;
+
+const float BALL_VELOCITY = 7.f;
+const float BALL_RADIUS = 9.f;
+const float BALL_START_COORD_X = PADDLE_START_COORD_X;
+const float BALL_START_COORD_Y = PADDLE_START_COORD_Y + BALL_RADIUS;
 
 const float BLOCK_WIDTH = 50.f;
 const float BLOCK_HEIGHT = 20.f;
@@ -61,17 +60,6 @@ Game::~Game() {
     blocks.clear();
 }
 
-void Game::handlePaddleBallCollision() {
-
-    if(!paddle.isIntersects(ball)) return;
-
-    ball.setVelocityY(-BALL_VELOCITY);
-
-    if(ball.getPosition().x < paddle.getPosition().x)
-        ball.setVelocityX(-BALL_VELOCITY);
-    else
-        ball.setVelocityX(BALL_VELOCITY);
-}
 
 void Game::processEvents() {
 	sf::Event event;
@@ -113,9 +101,21 @@ void Game::update() {
     if(current_command != nullptr)
         current_command->Execute(paddle);
 
-    handlePaddleBallCollision();
+    paddle.handleBallCollision(ball);
 
-	ball.update();
+    for(Block* block : blocks) block->handleBallCollision(ball);
+
+
+    for(int i = 0; i < blocks.size(); i++) {
+        if(!blocks[i]->isAlive()) {
+            delete blocks[i];
+            blocks.erase(blocks.begin() + i);
+            i--;
+        }
+    }
+
+
+    ball.update();
     paddle.update();
 }
 

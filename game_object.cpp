@@ -26,9 +26,11 @@ bool GameObject::isIntersects(const GameObject& another) const {
 /** Movable object implementation part **/
 
 
-MovableObject::MovableObject(sf::Vector2f coords, sf::Shape *form,
+MovableObject::MovableObject(sf::Vector2f coords, sf::Shape *form, float speed_rate,
         sf::Vector2f vel, const sf::Color &color) :
-        GameObject(coords, form, color), velocity(vel) { }
+        GameObject(coords, form, color),
+        velocity(vel),
+        move_rate(speed_rate) { }
 
 void MovableObject::update() {
     shape->move(velocity);
@@ -48,4 +50,8 @@ void MovableObject::setVelocityX(float vx) {
 
 void MovableObject::setVelocityY(float vy) {
     velocity.y = vy;
+}
+
+float MovableObject::getMoveRate() const {
+    return move_rate;
 }

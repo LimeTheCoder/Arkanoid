@@ -27,7 +27,7 @@ protected:
 class MovableObject : public GameObject {
 public:
 
-    MovableObject(sf::Vector2f coords, sf::Shape *shape,
+    MovableObject(sf::Vector2f coords, sf::Shape *shape, float speed_rate,
                sf::Vector2f velocity, const sf::Color &color);
 
     virtual void update();
@@ -38,8 +38,10 @@ public:
     void setVelocityX(float vx);
     void setVelocityY(float vy);
 
+    float getMoveRate() const;
 protected:
     sf::Vector2f velocity;
+    float move_rate;
 };
 
 

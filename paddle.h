@@ -2,6 +2,7 @@
 #define PADDLE_H
 
 #include "game_object.h"
+#include "ball.h"
 
 
 class Paddle : public MovableObject {
@@ -22,9 +23,11 @@ public:
     void stayAtPlace();
 
     void setSize(const sf::Vector2f &size);
+
+    void handleBallCollision(Ball &ball);
+
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-    float move_rate;
 };
 
 #endif
