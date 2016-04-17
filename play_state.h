@@ -1,16 +1,11 @@
-#ifndef GAME_H
-#define GAME_H
+#ifndef PLAY_STATE_H
+#define PLAY_STATE_H
 
 #include "paddle.h"
 #include "command.h"
 #include "block.h"
 #include "game_state.h"
 
-
-extern const unsigned WINDOW_WIDTH;
-extern const unsigned WINDOW_HEIGHT;
-extern const sf::String TITLE;
-extern const sf::Time TIME_PER_FRAME;
 
 extern const float BALL_VELOCITY;
 extern const float BALL_RADIUS;
@@ -34,7 +29,7 @@ extern const sf::Keyboard::Key BUTTON_RIGHT;
 
 class PlayState : public GameState {
 public:
-    PlayState();
+    PlayState(Game *state_holder);
     ~PlayState();
 
     void render();

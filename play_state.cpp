@@ -1,9 +1,5 @@
 #include "play_state.h"
 
-const float WINDOW_WIDTH = 800.f;
-const float WINDOW_HEIGHT = 600.f;
-const sf::String TITLE = "Arkanoid";
-const sf::Time TIME_PER_FRAME = sf::seconds(1.f / 60.f);
 
 const float PADDLE_VELOCITY = 6.f;
 const float PADDLE_WIDTH = 60.f;
@@ -25,8 +21,8 @@ const sf::Keyboard::Key BUTTON_LEFT = sf::Keyboard::Key::Left;
 const sf::Keyboard::Key BUTTON_RIGHT = sf::Keyboard::Key::Right;
 
 
-Game::Game() :
-        AbstractGame(WINDOW_WIDTH, WINDOW_HEIGHT, TITLE, TIME_PER_FRAME),
+PlayState::PlayState(Game *state_holder) :
+        GameState(state_holder),
         ball(BALL_START_COORD_X, BALL_START_COORD_Y, BALL_RADIUS, BALL_VELOCITY),
         paddle(PADDLE_START_COORD_X, PADDLE_START_COORD_Y,
                PADDLE_WIDTH, PADDLE_HEIGHT, PADDLE_VELOCITY)
@@ -48,7 +44,7 @@ Game::Game() :
         }
 }
 
-Game::~Game() {
+PlayState::~PlayState() {
     if(button_left != nullptr)
         delete button_left;
 
@@ -66,14 +62,14 @@ Game::~Game() {
 }
 
 
-void Game::processEvents() {
+void PlayState::processEvents() {
 	sf::Event event;
 
-	while (window.pollEvent(event)) {
+	while (game->getWindow()->pollEvent(event)) {
 	    switch (event.type) 
 	    {
 	        case sf::Event::Closed:
-	            window.close();
+                game->getWindow()->close();
 	            break;
 
 	        default:
@@ -92,7 +88,7 @@ void Game::processEvents() {
 }
 
 
-void Game::update() {
+void PlayState::update() {
 	if(ball.getLeft() < 0)
 		ball.setVelocityX(BALL_VELOCITY);
 	else if(ball.getRight() > WINDOW_WIDTH)
@@ -125,13 +121,13 @@ void Game::update() {
 }
 
 
-void Game::render() {
-	window.clear();
-	window.draw(ball);
-    window.draw(paddle);
+void PlayState::render() {
+    game->getWindow()->clear();
+    game->getWindow()->draw(ball);
+    game->getWindow()->draw(paddle);
 
     for(Block *block : blocks)
-        window.draw(*block);
+        game->getWindow()->draw(*block);
 
-    window.display();
+    game->getWindow()->display();
 }
