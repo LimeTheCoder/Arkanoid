@@ -23,6 +23,8 @@ public:
 
     void handleBallCollision(Ball &ball);
 
+    Block* clone();
+
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     void updateShapeColor();
@@ -30,5 +32,19 @@ private:
     int life_cnt;
 };
 
+/** Prototype pattern **/
+
+class BlockSpawner {
+public:
+    BlockSpawner(float width, float height);
+    ~BlockSpawner();
+
+    Block* getBlock(int type) const;
+
+private:
+    Block *easyBlock;
+    Block *mediumBlock;
+    Block *strongBlock;
+};
 
 #endif

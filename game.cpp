@@ -36,11 +36,16 @@ Game::Game() :
     button_right = new MoveRightCommand();
     current_command = default_command;
 
+    BlockSpawner spawner(BLOCK_WIDTH, BLOCK_HEIGHT);
+    Block *curr = nullptr;
+
     for(int i = 0; i < BLOCK_COLUMNS_CNT; i++)
-        for(int j = 0; j < BLOCK_ROWS_CNT; j++)
-            blocks.push_back(new Block((i + 1) * (BLOCK_WIDTH + 2)+ 75,
-                                       (j + 1) * (BLOCK_HEIGHT + 2) + 50,
-                                       BLOCK_WIDTH, BLOCK_HEIGHT, (j % 3 + 1)));
+        for(int j = 0; j < BLOCK_ROWS_CNT; j++) {
+            curr = spawner.getBlock(j % 3 + 1);
+            curr->setPosition(sf::Vector2f((i + 1) * (BLOCK_WIDTH + 2) + 75,
+                                           (j + 1) * (BLOCK_HEIGHT + 2) + 50));
+            blocks.push_back(curr);
+        }
 }
 
 Game::~Game() {

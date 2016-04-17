@@ -94,3 +94,41 @@ void Block::handleBallCollision(Ball &ball) {
 void Block::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(*dynamic_cast<sf::RectangleShape*>(shape), states);
 }
+
+Block* Block::clone() {
+    return new Block(getPosition().x, getPosition().y, getWidth(), getHeight(), life_cnt);
+}
+
+/** Prototype pattern implementation **/
+
+BlockSpawner::BlockSpawner(float width, float height) {
+    easyBlock = new Block(0.f, 0.f, width, height, 1);
+    mediumBlock = new Block(0.f, 0.f, width, height, 2);
+    strongBlock = new Block(0.f, 0.f, width, height, 3);
+}
+
+BlockSpawner::~BlockSpawner() {
+    delete easyBlock;
+    delete mediumBlock;
+    delete strongBlock;
+}
+
+Block* BlockSpawner::getBlock(int type) const {
+    Block *out = nullptr;
+
+    switch (type) {
+        case 3:
+            out = strongBlock->clone();
+            break;
+        case 2:
+            out = mediumBlock->clone();
+            break;
+        case 1:
+            out = easyBlock->clone();
+            break;
+        default:
+            break;
+    }
+
+    return out;
+}
