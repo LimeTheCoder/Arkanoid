@@ -3,7 +3,7 @@ project(LionCourse)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES main.cpp game.cpp game.h ball.cpp ball.h paddle.cpp paddle.h game_object.cpp game_object.h absract_game.cpp absract_game.h command.h block.cpp block.h)
+set(SOURCE_FILES main.cpp play_state.cpp play_state.h ball.cpp ball.h paddle.cpp paddle.h game_object.cpp game_object.h command.h block.cpp block.h game_state.h game.cpp game.h)
 add_executable(LionCourse ${SOURCE_FILES})
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
