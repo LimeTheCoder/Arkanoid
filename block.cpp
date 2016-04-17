@@ -2,9 +2,10 @@
 
 Block::Block(float start_x, float start_y, float width, float height, int durability) :
         GameObject(sf::Vector2f(start_x, start_y),
-                                 new sf::RectangleShape(), sf::Color(100, 0, 0)),
-        life_cnt(durability) {
-
+                                 new sf::RectangleShape(), sf::Color::Yellow)
+{
+    life_cnt = (durability <= 3 && durability > 0) ? durability : 3;
+    updateShapeColor();
     setSize(sf::Vector2f(width, height));
     dynamic_cast<sf::RectangleShape*>(shape)->setOrigin(width / 2.f, height / 2.f);
 }
@@ -47,9 +48,25 @@ bool Block::isAlive() const {
     return life_cnt != 0;
 }
 
+void Block::updateShapeColor() {
+    switch (life_cnt) {
+        case 3:
+            shape->setFillColor(sf::Color(90, 0, 0));
+            break;
+        case 2:
+            shape->setFillColor(sf::Color(160, 85, 0));
+            break;
+        case 1:
+            shape->setFillColor(sf::Color::Yellow);
+            break;
+        default:
+            break;
+    }
+}
+
 void Block::onHint() {
     life_cnt--;
-
+    updateShapeColor();
 }
 
 void Block::handleBallCollision(Ball &ball) {

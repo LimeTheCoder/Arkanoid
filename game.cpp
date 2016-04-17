@@ -5,13 +5,13 @@ const float WINDOW_HEIGHT = 600.f;
 const sf::String TITLE = "Arkanoid";
 const sf::Time TIME_PER_FRAME = sf::seconds(1.f / 60.f);
 
-const float PADDLE_VELOCITY = 5.f;
+const float PADDLE_VELOCITY = 6.f;
 const float PADDLE_WIDTH = 60.f;
 const float PADDLE_HEIGHT = 15.f;
 const float PADDLE_START_COORD_X = WINDOW_WIDTH / 2.f;
 const float PADDLE_START_COORD_Y = WINDOW_HEIGHT - 30.f;
 
-const float BALL_VELOCITY = 7.f;
+const float BALL_VELOCITY = 6.f;
 const float BALL_RADIUS = 9.f;
 const float BALL_START_COORD_X = PADDLE_START_COORD_X;
 const float BALL_START_COORD_Y = PADDLE_START_COORD_Y + BALL_RADIUS;
@@ -40,7 +40,7 @@ Game::Game() :
         for(int j = 0; j < BLOCK_ROWS_CNT; j++)
             blocks.push_back(new Block((i + 1) * (BLOCK_WIDTH + 2)+ 75,
                                        (j + 1) * (BLOCK_HEIGHT + 2) + 50,
-                                       BLOCK_WIDTH, BLOCK_HEIGHT, 1));
+                                       BLOCK_WIDTH, BLOCK_HEIGHT, (j % 3 + 1)));
 }
 
 Game::~Game() {

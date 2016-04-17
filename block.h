@@ -25,6 +25,8 @@ public:
 
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+    void updateShapeColor();
+
     int life_cnt;
 };
 
