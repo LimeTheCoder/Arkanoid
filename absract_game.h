@@ -6,7 +6,7 @@
 
 class AbstractGame {
 public:
-    AbstractGame(unsigned int window_width, unsigned int window_height,
+    AbstractGame(float window_width, float window_height,
                  sf::String title, sf::Time time_per_frame);
     void run();
 

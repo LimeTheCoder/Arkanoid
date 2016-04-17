@@ -4,18 +4,18 @@
 #include "game_object.h"
 
 
-class Paddle : public GameObject {
+class Paddle : public MovableObject {
 public:
     Paddle(float start_x, float start_y, float width, float height, float speed);
     ~Paddle();
 
-    float getWidth();
-    float getHeight();
+    float getWidth() const;
+    float getHeight() const;
 
-    float getLeft();
-    float getRight();
-    float getTop();
-    float getBottom();
+    float getLeft() const;
+    float getRight() const;
+    float getTop() const;
+    float getBottom() const;
 
     void moveLeft();
     void moveRight();

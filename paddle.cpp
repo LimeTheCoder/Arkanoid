@@ -2,7 +2,7 @@
 
 Paddle::Paddle(float start_x, float start_y, float width, float height,
                float speed) :
-        GameObject(sf::Vector2f(start_x, start_y), new sf::RectangleShape(),
+        MovableObject(sf::Vector2f(start_x, start_y), new sf::RectangleShape(),
                    sf::Vector2f(0.f, 0.f), sf::Color::Magenta)
 {
     move_rate = speed;
@@ -13,13 +13,14 @@ Paddle::Paddle(float start_x, float start_y, float width, float height,
 Paddle::~Paddle() {
     if(shape != nullptr)
         delete dynamic_cast<sf::RectangleShape*>(shape);
+    shape = nullptr;
 }
 
-float Paddle::getWidth() {
+float Paddle::getWidth() const {
     return dynamic_cast<sf::RectangleShape*>(shape)->getSize().x;
 }
 
-float Paddle::getHeight() {
+float Paddle::getHeight() const {
     return dynamic_cast<sf::RectangleShape*>(shape)->getSize().y;
 }
 
@@ -27,19 +28,19 @@ void Paddle::setSize(const sf::Vector2f &size) {
     dynamic_cast<sf::RectangleShape*>(shape)->setSize(size);
 }
 
-float Paddle::getRight() {
+float Paddle::getRight() const {
     return getPosition().x + getWidth() / 2.f;
 }
 
-float Paddle::getLeft() {
+float Paddle::getLeft() const {
     return getPosition().x - getWidth() / 2.f;
 }
 
-float Paddle::getTop() {
+float Paddle::getTop() const {
     return getPosition().y - getHeight() / 2.f;
 }
 
-float Paddle::getBottom() {
+float Paddle::getBottom() const {
     return getPosition().y + getHeight() / 2.f;
 }
 

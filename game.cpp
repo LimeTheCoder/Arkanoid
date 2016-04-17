@@ -1,7 +1,7 @@
 #include "game.h"
 
-const int WINDOW_WIDTH = 800;
-const int WINDOW_HEIGHT = 600;
+const float WINDOW_WIDTH = 800.f;
+const float WINDOW_HEIGHT = 600.f;
 const sf::String TITLE = "Arkanoid";
 const sf::Time TIME_PER_FRAME = sf::seconds(1.f / 60.f);
 
@@ -13,9 +13,14 @@ const float BALL_START_COORD_Y = 50.f;
 
 const float PADDLE_VELOCITY = 6.f;
 const float PADDLE_WIDTH = 60.f;
-const float PADDLE_HEIGHT = 20.f;
+const float PADDLE_HEIGHT = 15.f;
 const float PADDLE_START_COORD_X = WINDOW_WIDTH / 2.f;
 const float PADDLE_START_COORD_Y = WINDOW_HEIGHT - 30.f;
+
+const float BLOCK_WIDTH = 50.f;
+const float BLOCK_HEIGHT = 20.f;
+const int BLOCK_ROWS_CNT = 4;
+const int BLOCK_COLUMNS_CNT = 11;
 
 const sf::Keyboard::Key BUTTON_LEFT = sf::Keyboard::Key::Left;
 const sf::Keyboard::Key BUTTON_RIGHT = sf::Keyboard::Key::Right;
@@ -31,6 +36,12 @@ Game::Game() :
     button_left = new MoveLeftCommand();
     button_right = new MoveRightCommand();
     current_command = default_command;
+
+    for(int i = 0; i < BLOCK_COLUMNS_CNT; i++)
+        for(int j = 0; j < BLOCK_ROWS_CNT; j++)
+            blocks.push_back(new Block((i + 1) * (BLOCK_WIDTH + 2)+ 75,
+                                       (j + 1) * (BLOCK_HEIGHT + 2) + 50,
+                                       BLOCK_WIDTH, BLOCK_HEIGHT, 1));
 }
 
 Game::~Game() {
@@ -42,16 +53,17 @@ Game::~Game() {
 
     if(default_command != nullptr)
         delete default_command;
-}
 
-bool Game::isIntersects(GameObject& first, GameObject& second)  {
-    return first.getRight() >= second.getLeft() && first.getLeft() <= second.getRight() &&
-           first.getBottom() >= second.getTop() && first.getTop() <= second.getBottom();
+    for (Block *block : blocks) {
+        delete block;
+    }
+
+    blocks.clear();
 }
 
 void Game::handlePaddleBallCollision() {
 
-    if(!isIntersects(paddle, ball)) return;
+    if(!paddle.isIntersects(ball)) return;
 
     ball.setVelocityY(-BALL_VELOCITY);
 
@@ -112,5 +124,9 @@ void Game::render() {
 	window.clear();
 	window.draw(ball);
     window.draw(paddle);
+
+    for(Block *block : blocks)
+        window.draw(*block);
+
     window.display();
 }

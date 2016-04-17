@@ -5,9 +5,10 @@
 #include "ball.h"
 #include "paddle.h"
 #include "command.h"
+#include "block.h"
 
-extern const int WINDOW_WIDTH;
-extern const int WINDOW_HEIGHT;
+extern const float WINDOW_WIDTH;
+extern const float WINDOW_HEIGHT;
 extern const sf::String TITLE;
 extern const sf::Time TIME_PER_FRAME;
 
@@ -21,6 +22,11 @@ extern const float PADDLE_WIDTH;
 extern const float PADDLE_HEIGHT;
 extern const float PADDLE_START_COORD_X;
 extern const float PADDLE_START_COORD_Y;
+
+extern const float BLOCK_WIDTH;
+extern const float BLOCK_HEIGHT;
+extern const int BLOCK_ROWS_CNT;
+extern const int BLOCK_COLUMNS_CNT;
 
 extern const sf::Keyboard::Key BUTTON_LEFT;
 extern const sf::Keyboard::Key BUTTON_RIGHT;
@@ -37,12 +43,14 @@ public:
 private:
     Ball ball;
     Paddle paddle;
+
     Command *current_command;
     Command *button_left;
     Command *button_right;
     Command *default_command;
 
-    bool isIntersects(GameObject& first, GameObject& second);
+   std::vector<Block*> blocks;
+
     void handlePaddleBallCollision();
 
 };
