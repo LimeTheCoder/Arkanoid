@@ -1,14 +1,30 @@
-//
-// Created by laymont on 17.04.16.
-//
+#ifndef BLOCK_H
+#define BLOCK_H
 
-#ifndef LIONCOURSE_BLOCK_H
-#define LIONCOURSE_BLOCK_H
+#include "game_object.h"
 
+class Block : public GameObject {
+public:
+    Block(float start_x, float start_y, float width, float height, int durability);
+    ~Block();
 
-class block {
+    float getWidth() const;
+    float getHeight() const;
 
+    void setSize(const sf::Vector2f &size);
+
+    float getLeft() const;
+    float getRight() const;
+    float getTop() const;
+    float getBottom() const;
+
+    bool isAlive() const;
+    void onHint();
+
+private:
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+    int life_cnt;
 };
 
 
-#endif //LIONCOURSE_BLOCK_H
+#endif
