@@ -11,6 +11,17 @@ extern const sf::Time TIME_PER_FRAME;
 
 class GameState;
 
+
+namespace States {
+    enum Code {
+        Menu,
+        Game,
+        Scores,
+        Pause
+    };
+}
+
+
 class Game {
 public:
     Game();
@@ -18,9 +29,9 @@ public:
 
     void run();
 
-    void addState(GameState* state);
+    void addState(States::Code state);
     void popState();
-    void changeState(GameState* state);
+    void changeState(States::Code state);
     GameState* getState() const;
     sf::RenderWindow *getWindow();
 

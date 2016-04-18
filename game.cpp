@@ -1,5 +1,6 @@
 #include "game.h"
 #include "play_state.h"
+#include "menu_state.h"
 
 const unsigned WINDOW_WIDTH = 800;
 const unsigned WINDOW_HEIGHT = 600;
@@ -10,7 +11,7 @@ const sf::Time TIME_PER_FRAME = sf::seconds(1.f / 60.f);
 Game::Game() :
         window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), TITLE),
         time_per_frame(TIME_PER_FRAME) {
-    addState(new PlayState(this));
+    addState(States::Code::Menu);
 }
 
 Game::~Game() {
@@ -23,11 +24,24 @@ GameState* Game::getState() const {
     return screens.top();
 }
 
-void Game::addState(GameState* state) {
-    screens.push(state);
+void Game::addState(States::Code state) {
+    switch (state) {
+        case States::Code::Game:
+            screens.push(new PlayState(this));
+            break;
+        case States::Code::Menu:
+            screens.push(new MenuState(this));
+            break;
+        case States::Code::Pause:
+            break;
+        case States::Code::Scores:
+            break;
+        default:
+            break;
+    }
 }
 
-void Game::changeState(GameState* state) {
+void Game::changeState(States::Code state) {
     if(!screens.empty())
         popState();
     addState(state);
@@ -53,7 +67,6 @@ void Game::run() {
         if(getState() == nullptr)
             return;
 
-        getState()->processEvents();
 
         while(timeSinceLastUpdate > time_per_frame) {
             getState()->update();
@@ -61,5 +74,6 @@ void Game::run() {
         }
 
         getState()->render();
+        getState()->processEvents();
     }
 }

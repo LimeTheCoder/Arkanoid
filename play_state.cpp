@@ -69,8 +69,8 @@ void PlayState::processEvents() {
 	    switch (event.type) 
 	    {
 	        case sf::Event::Closed:
-                game->getWindow()->close();
-	            break;
+                game->popState();
+	            return;
 
 	        default:
 	            break;
