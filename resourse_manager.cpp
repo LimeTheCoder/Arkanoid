@@ -1,5 +1,23 @@
 #include "resourse_manager.h"
 
+
+namespace ResourceLocations {
+    std::string MenuFont = "Media/fonts/menu_font.otf";
+    std::string MenuTexture = "Media/images/menu_background.jpg";
+}
+
+
+/** Primary manager implementation **/
+
+sf::Texture* ResourseManager::getTexture(Textures::Code code) {
+    return texture_manager.getTexture(code);
+}
+
+sf::Font * ResourseManager::getFont(Fonts::Code code) {
+    return font_manager.getFont(code);
+}
+
+
 /** Texture manager implementation **/
 
 TextureManager::~TextureManager() {
@@ -15,7 +33,7 @@ sf::Texture *TextureManager::getTexture(Textures::Code code) {
         case Textures::Code::MenuBackground:
             if(textures.find(code) == textures.end()) { // not in map
                 texture = new sf::Texture();
-                texture->loadFromFile(Textures::Location::MenuBg);
+                texture->loadFromFile(ResourceLocations::MenuTexture);
                 textures[code] = texture;
             }
             else
@@ -49,7 +67,7 @@ sf::Font *FontManager::getFont(Fonts::Code code) {
         case Fonts::Code::Menu:
             if(fonts.find(code) == fonts.end()) { // not in map
                 font = new sf::Font();
-                font->loadFromFile(Fonts::Location::Menu);
+                font->loadFromFile(ResourceLocations::MenuFont);
                 fonts[code] = font;
             }
             else

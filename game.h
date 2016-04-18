@@ -1,7 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <SFML/Graphics.hpp>
+#include "resourse_manager.h"
 #include <stack>
 
 extern const unsigned WINDOW_WIDTH;
@@ -35,11 +35,14 @@ public:
     GameState* getState() const;
     sf::RenderWindow *getWindow();
 
+    ResourseManager& getResourseManager();
+
 private:
     sf::RenderWindow window;
     const sf::Time time_per_frame;
 
     std::stack<GameState*> screens;
+    ResourseManager resourse_manager;
 };
 
 

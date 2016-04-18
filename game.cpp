@@ -57,6 +57,11 @@ sf::RenderWindow *Game::getWindow() {
     return &window;
 }
 
+ResourseManager& Game::getResourseManager() {
+    return resourse_manager;
+}
+
+
 void Game::run() {
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;

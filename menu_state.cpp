@@ -6,12 +6,10 @@ const float MENU_POSITION_Y = 150.f;
 
 MenuState::MenuState(Game *state_holder) :
         GameState(state_holder), selected(0) {
-    sf::Texture *texture = new sf::Texture();
-    texture->loadFromFile("Media/images/menu_background.jpg");
+    sf::Texture *texture = game->getResourseManager().getTexture(Textures::Code::MenuBackground);
 
-    sf::Font *font = new sf::Font();
+    sf::Font *font = game->getResourseManager().getFont(Fonts::Code::Menu);
 
-    font->loadFromFile("Media/fonts/option_font.otf");
     backgroundSprite.setTexture(*texture);
 
     sf::Text playOption;

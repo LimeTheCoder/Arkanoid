@@ -4,18 +4,12 @@
 #include <map>
 #include <SFML/Graphics.hpp>
 
-
 namespace Textures {
     enum Code {
         MenuBackground,
         GameBackground
     };
-
-    namespace Location {
-        std::string MenuBg = "Media/images/menu_background.jpg";
-    }
 }
-
 
 namespace Fonts {
     enum Code {
@@ -23,15 +17,13 @@ namespace Fonts {
         Score
     };
 
-    namespace Location {
-        std::string Menu = "Media/fonts/menu_font.otf";
-    }
 }
 
+namespace ResourceLocations {
+    extern std::string MenuFont;
+    extern std::string MenuTexture;
+}
 
-class ResourseManager {
-
-};
 
 class TextureManager {
 public:
@@ -50,6 +42,17 @@ public:
     sf::Font* getFont(Fonts::Code code);
 private:
     std::map<Fonts::Code, sf::Font*> fonts;
+};
+
+
+class ResourseManager {
+public:
+    sf::Texture* getTexture(Textures::Code code);
+    sf::Font* getFont(Fonts::Code code);
+
+private:
+    TextureManager texture_manager;
+    FontManager font_manager;
 };
 
 

@@ -1,4 +1,4 @@
-#include "play_state.h"
+#include "game.h"
 
 int main() {
     Game game;
