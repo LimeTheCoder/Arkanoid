@@ -1,5 +1,9 @@
 #include "menu_state.h"
 
+const size_t CHARACTER_SIZE = 80;
+const float MENU_POSITION_X = 350.f;
+const float MENU_POSITION_Y = 150.f;
+
 MenuState::MenuState(Game *state_holder) :
         GameState(state_holder), selected(0) {
     sf::Texture *texture = new sf::Texture();
@@ -12,24 +16,24 @@ MenuState::MenuState(Game *state_holder) :
 
     sf::Text playOption;
     playOption.setFont(*font);
-    playOption.setString("Play");
-    playOption.setCharacterSize(70);
-    playOption.setPosition(sf::Vector2f(350.f, 150.f));
+    playOption.setString(OptionNames::Play);
+    playOption.setCharacterSize(CHARACTER_SIZE);
+    playOption.setPosition(sf::Vector2f(MENU_POSITION_X, MENU_POSITION_Y));
     options.push_back(playOption);
 
 
     sf::Text scoresOption;
     scoresOption.setFont(*font);
-    scoresOption.setString("Scores");
-    scoresOption.setCharacterSize(70);
-    scoresOption.setPosition(playOption.getPosition() + sf::Vector2f(0.f, 70.f));
+    scoresOption.setString(OptionNames::Scores);
+    scoresOption.setCharacterSize(CHARACTER_SIZE);
+    scoresOption.setPosition(playOption.getPosition() + sf::Vector2f(0.f, CHARACTER_SIZE));
     options.push_back(scoresOption);
 
     sf::Text exitOption;
     exitOption.setFont(*font);
-    exitOption.setCharacterSize(70);
-    exitOption.setString("Exit");
-    exitOption.setPosition(scoresOption.getPosition() + sf::Vector2f(0.f, 70.f));
+    exitOption.setCharacterSize(CHARACTER_SIZE);
+    exitOption.setString(OptionNames::Exit);
+    exitOption.setPosition(scoresOption.getPosition() + sf::Vector2f(0.f, CHARACTER_SIZE));
     options.push_back(exitOption);
 
     updateOptions();
@@ -42,9 +46,9 @@ MenuState::~MenuState() {
 
 void MenuState::updateOptions() {
     for(sf::Text &option : options)
-        option.setColor(sf::Color::White);
+        option.setColor(sf::Color::Blue);
 
-    options[selected].setColor(sf::Color::Blue);
+    options[selected].setColor(sf::Color::Yellow);
 }
 
 /** Nothing to do in update, cause we must update text in case
