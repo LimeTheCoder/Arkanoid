@@ -22,6 +22,11 @@ namespace Fonts {
 namespace ResourceLocations {
     extern std::string MenuFont;
     extern std::string MenuTexture;
+
+    extern std::string ScoresFont;
+    extern std::string ScoresTexture;
+
+    extern std::string HighscoresData;
 }
 
 

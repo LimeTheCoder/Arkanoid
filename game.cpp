@@ -7,6 +7,8 @@ const unsigned WINDOW_HEIGHT = 600;
 const sf::String TITLE = "Arkanoid";
 const sf::Time TIME_PER_FRAME = sf::seconds(1.f / 60.f);
 
+const int HIGHSCORES_CNT = 8;
+
 
 Game::Game() :
         window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), TITLE),
@@ -81,4 +83,37 @@ void Game::run() {
         getState()->render();
         getState()->processEvents();
     }
+}
+
+
+void Game::loadHighScores(std::vector<ScoreRecord> &scores) const {
+    std::ifstream datafile (ResourceLocations::Highscores);
+    if (!datafile.is_open())
+        std::cout << "Error to open: " + ResourceLocations::HighscoresData;
+
+    ScoreRecord record;
+
+    while(datafile >> record.name >> record.scores)
+        scores.push_back(record);
+
+    datafile.close();
+}
+
+void Game::saveScore(ScoreRecord &record) {
+    std::vector<ScoreRecord> records;
+    loadHighScores(records);
+
+    if(record.scores <= records.back().scores)
+        return;
+
+    records.push_back(record);
+    std::sort(records.begin(), records.end(),
+              [](const ScoreRecord& left, const ScoreRecord& right) {
+                  return left.scores > right.scores;});
+
+    std::ofstream scoresfile(ResourceLocations::HighscoresData);
+    for(int i = 0; i < HIGHSCORES_CNT; i++)
+        scoresfile << (records[i].name + " " + std::to_string(records[i].scores) + " ");
+
+    scoresfile.close();
 }

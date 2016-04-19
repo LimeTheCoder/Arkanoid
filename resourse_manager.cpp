@@ -3,7 +3,12 @@
 
 namespace ResourceLocations {
     std::string MenuFont = "Media/fonts/menu_font.otf";
-    std::string MenuTexture = "Media/images/menu_background.jpg";
+    std::string MenuTexture = "Media/images/main_background.jpg";
+
+    std::string ScoresFont = "Media/fonts/menu_font.otf";
+    std::string ScoresTexture = "Media/images/main_background.jpg";
+
+    std::string HighscoresData = "Media/highscores.dat";
 }
 
 
