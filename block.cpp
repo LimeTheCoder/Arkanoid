@@ -67,6 +67,7 @@ void Block::updateShapeColor() {
 void Block::onHint() {
     life_cnt--;
     updateShapeColor();
+    score++;
 }
 
 void Block::handleBallCollision(Ball &ball) {
@@ -97,6 +98,12 @@ void Block::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 Block* Block::clone() {
     return new Block(getPosition().x, getPosition().y, getWidth(), getHeight(), life_cnt);
+}
+
+unsigned Block::score = 0;
+
+unsigned Block::getScore() {
+    return score;
 }
 
 /** Prototype pattern implementation **/

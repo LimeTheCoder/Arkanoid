@@ -7,7 +7,8 @@
 namespace Textures {
     enum Code {
         MenuBackground,
-        ScoreBackground
+        ScoreBackground,
+        GameBackground
     };
 }
 

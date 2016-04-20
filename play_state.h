@@ -45,7 +45,11 @@ private:
     Command *button_right;
     Command *default_command;
 
-   std::vector<Block*> blocks;
+    std::vector<Block*> blocks;
+
+    sf::Text scoreText;
+
+    sf::Sprite backgroundSprite;
 
 };
 

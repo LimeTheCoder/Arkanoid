@@ -25,11 +25,14 @@ public:
 
     Block* clone();
 
+    static unsigned getScore();
+
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     void updateShapeColor();
 
     int life_cnt;
+    static unsigned score;
 };
 
 /** Prototype pattern **/

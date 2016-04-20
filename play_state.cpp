@@ -7,7 +7,7 @@ const float PADDLE_HEIGHT = 15.f;
 const float PADDLE_START_COORD_X = WINDOW_WIDTH / 2.f;
 const float PADDLE_START_COORD_Y = WINDOW_HEIGHT - 30.f;
 
-const float BALL_VELOCITY = 6.f;
+const float BALL_VELOCITY = 5.f;
 const float BALL_RADIUS = 9.f;
 const float BALL_START_COORD_X = PADDLE_START_COORD_X;
 const float BALL_START_COORD_Y = PADDLE_START_COORD_Y + BALL_RADIUS;
@@ -32,6 +32,10 @@ PlayState::PlayState(Game *state_holder) :
     button_right = new MoveRightCommand();
     current_command = default_command;
 
+
+    sf::Texture *texture = game->getResourseManager().getTexture(Textures::Code::GameBackground);
+    backgroundSprite.setTexture(*texture);
+
     BlockSpawner spawner(BLOCK_WIDTH, BLOCK_HEIGHT);
     Block *curr = nullptr;
 
@@ -42,6 +46,13 @@ PlayState::PlayState(Game *state_holder) :
                                            (j + 1) * (BLOCK_HEIGHT + 2) + 50));
             blocks.push_back(curr);
         }
+
+    sf::Font *font = game->getResourseManager().getFont(Fonts::Score);
+
+    scoreText.setColor(sf::Color::Cyan);
+    scoreText.setCharacterSize(40);
+    scoreText.setPosition(WINDOW_WIDTH - 150.f, 0.f);
+    scoreText.setFont(*font);
 }
 
 PlayState::~PlayState() {
@@ -118,13 +129,20 @@ void PlayState::update() {
 
     ball.update();
     paddle.update();
+
+    sf::String scores_string = sf::String("SCORE: ") +
+            sf::String(std::to_string(Block::getScore()));
+    scoreText.setString(scores_string);
 }
 
 
 void PlayState::render() {
     game->getWindow()->clear();
+    game->getWindow()->draw(backgroundSprite);
     game->getWindow()->draw(ball);
     game->getWindow()->draw(paddle);
+
+    game->getWindow()->draw(scoreText);
 
     for(Block *block : blocks)
         game->getWindow()->draw(*block);

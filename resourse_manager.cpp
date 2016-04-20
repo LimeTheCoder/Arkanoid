@@ -9,6 +9,8 @@ namespace ResourceLocations {
     std::string ScoresTexture = "Media/images/main_background.jpg";
 
     std::string HighscoresData = "Media/highscores.dat";
+
+    std::string GameTexture = "Media/images/game_background.jpg";
 }
 
 
@@ -46,6 +48,10 @@ sf::Texture *TextureManager::getTexture(Textures::Code code) {
 
         case Textures::Code::ScoreBackground:
             texture->loadFromFile(ResourceLocations::ScoresTexture);
+            break;
+
+        case Textures::Code::GameBackground:
+            texture->loadFromFile(ResourceLocations::GameTexture);
             break;
 
         default:
