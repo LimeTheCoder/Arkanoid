@@ -1,6 +1,7 @@
 #include "game.h"
 #include "play_state.h"
 #include "menu_state.h"
+#include "scores_state.h"
 
 const unsigned WINDOW_WIDTH = 800;
 const unsigned WINDOW_HEIGHT = 600;
@@ -37,6 +38,7 @@ void Game::addState(States::Code state) {
         case States::Code::Pause:
             break;
         case States::Code::Scores:
+            screens.push(new ScoresState(this));
             break;
         default:
             break;
@@ -87,7 +89,7 @@ void Game::run() {
 
 
 void Game::loadHighScores(std::vector<ScoreRecord> &scores) const {
-    std::ifstream datafile (ResourceLocations::Highscores);
+    std::ifstream datafile (ResourceLocations::HighscoresData);
     if (!datafile.is_open())
         std::cout << "Error to open: " + ResourceLocations::HighscoresData;
 

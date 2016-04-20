@@ -34,23 +34,25 @@ TextureManager::~TextureManager() {
 sf::Texture *TextureManager::getTexture(Textures::Code code) {
     sf::Texture *texture = nullptr;
 
+    if(textures.find(code) != textures.end())
+        return textures[code];
+
+    texture = new sf::Texture();
+
     switch (code) {
         case Textures::Code::MenuBackground:
-            if(textures.find(code) == textures.end()) { // not in map
-                texture = new sf::Texture();
-                texture->loadFromFile(ResourceLocations::MenuTexture);
-                textures[code] = texture;
-            }
-            else
-                texture = textures[code];
+            texture->loadFromFile(ResourceLocations::MenuTexture);
             break;
 
-        case Textures::Code::GameBackground:
+        case Textures::Code::ScoreBackground:
+            texture->loadFromFile(ResourceLocations::ScoresTexture);
             break;
 
         default:
             break;
     }
+
+    textures[code] = texture;
 
     return texture;
 }
@@ -68,23 +70,25 @@ FontManager::~FontManager() {
 sf::Font *FontManager::getFont(Fonts::Code code) {
     sf::Font *font = nullptr;
 
+    if(fonts.find(code) != fonts.end())
+        return fonts[code];
+
+    font = new sf::Font();
+
     switch (code) {
         case Fonts::Code::Menu:
-            if(fonts.find(code) == fonts.end()) { // not in map
-                font = new sf::Font();
-                font->loadFromFile(ResourceLocations::MenuFont);
-                fonts[code] = font;
-            }
-            else
-                font = fonts[code];
+            font->loadFromFile(ResourceLocations::MenuFont);
             break;
 
         case Fonts::Code::Score:
+            font->loadFromFile(ResourceLocations::ScoresFont);
             break;
 
         default:
             break;
     }
+
+    fonts[code] = font;
 
     return font;
 }

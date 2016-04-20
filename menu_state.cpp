@@ -4,6 +4,14 @@ const size_t CHARACTER_SIZE = 80;
 const float MENU_POSITION_X = 350.f;
 const float MENU_POSITION_Y = 150.f;
 
+
+namespace OptionNames {
+    const std::string Play = "Play";
+    const std::string Scores = "Scores";
+    const std::string Exit = "Exit";
+}
+
+
 MenuState::MenuState(Game *state_holder) :
         GameState(state_holder), selected(0) {
     sf::Texture *texture = game->getResourseManager().getTexture(Textures::Code::MenuBackground);
@@ -49,7 +57,7 @@ void MenuState::updateOptions() {
     options[selected].setColor(sf::Color::Yellow);
 }
 
-/** Nothing to do in update, cause we must update text in case
+/** Nothing to do in update, cause we must update text only in case
  * when user provide input.
  * Not on every loop iteration **/
 
@@ -100,6 +108,7 @@ void MenuState::processEvents() {
                                 game->changeState(States::Game);
                                 return;
                             case Scores:
+                                game->addState(States::Scores);
                                 break;
                             case Exit:
                                 game->popState();

@@ -8,9 +8,9 @@ extern const float MENU_POSITION_X;
 extern const float MENU_POSITION_Y;
 
 namespace OptionNames {
-    const std::string Play = "Play";
-    const std::string Scores = "Scores";
-    const std::string Exit = "Exit";
+    extern const std::string Play;
+    extern const std::string Scores;
+    extern const std::string Exit;
 }
 
 
