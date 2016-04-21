@@ -52,10 +52,17 @@ PlayState::PlayState(Game *state_holder) :
 
     sf::Font *font = game->getResourseManager().getFont(Fonts::Score);
 
-    scoreText.setColor(sf::Color::Cyan);
-    scoreText.setCharacterSize(40);
-    scoreText.setPosition(WINDOW_WIDTH - 150.f, 0.f);
-    scoreText.setFont(*font);
+    score_text.setColor(sf::Color::Cyan);
+    score_text.setCharacterSize(40);
+    score_text.setPosition(WINDOW_WIDTH - 150.f, 0.f);
+    score_text.setFont(*font);
+
+
+    pause_text.setColor(sf::Color(255, 255, 255));
+    pause_text.setCharacterSize(65);
+    pause_text.setPosition(WINDOW_WIDTH / 2.f - 50.f, WINDOW_HEIGHT / 2.f - 50.f);
+    pause_text.setFont(*font);
+    pause_text.setString("PAUSED");
 }
 
 PlayState::~PlayState() {
@@ -92,6 +99,20 @@ void PlayState::processEvents() {
                 game->setGameScore(Block::getScore());
                 game->popState();
 	            return;
+
+            case sf::Event::KeyPressed:
+
+                switch (event.key.code) {
+                    case sf::Keyboard::P:
+                        game->changePauseState();
+                        return;
+                    case sf::Keyboard::Escape:
+                        game->changeState(States::Menu);
+                        return;
+                    default:
+                        break;
+                }
+                break;
 
 	        default:
 	            break;
@@ -144,7 +165,7 @@ void PlayState::update() {
 
     sf::String scores_string = sf::String("SCORE: ") +
             sf::String(std::to_string(Block::getScore()));
-    scoreText.setString(scores_string);
+    score_text.setString(scores_string);
 }
 
 
@@ -154,10 +175,13 @@ void PlayState::render() {
     game->getWindow()->draw(ball);
     game->getWindow()->draw(paddle);
 
-    game->getWindow()->draw(scoreText);
+    game->getWindow()->draw(score_text);
 
     for(Block *block : blocks)
         game->getWindow()->draw(*block);
+
+    if(game->getPauseState())
+        game->getWindow()->draw(pause_text);
 
     game->getWindow()->display();
 }

@@ -52,6 +52,10 @@ public:
 
     void setGameScore(unsigned score);
     unsigned getPlayerScore() const;
+
+    void changePauseState();
+    bool getPauseState() const;
+
 private:
     sf::RenderWindow window;
     const sf::Time time_per_frame;
@@ -59,6 +63,7 @@ private:
     std::stack<GameState*> screens;
     ResourseManager resourse_manager;
     ScoreRecord player_score;
+    bool isPaused;
 };
 
 

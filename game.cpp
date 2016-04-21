@@ -14,7 +14,9 @@ const int HIGHSCORES_CNT = 8;
 
 Game::Game() :
         window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), TITLE),
-        time_per_frame(TIME_PER_FRAME) {
+        time_per_frame(TIME_PER_FRAME),
+        isPaused(false)
+{
     addState(States::Code::Menu);
 }
 
@@ -69,6 +71,14 @@ ResourseManager& Game::getResourseManager() {
 }
 
 
+void Game::changePauseState() {
+    isPaused = !isPaused;
+}
+
+bool Game::getPauseState() const {
+    return isPaused;
+}
+
 void Game::run() {
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
@@ -79,9 +89,9 @@ void Game::run() {
         if(getState() == nullptr)
             return;
 
-
         while(timeSinceLastUpdate > time_per_frame) {
-            getState()->update();
+            if(!isPaused)
+                getState()->update();
             timeSinceLastUpdate -= time_per_frame;
         }
 

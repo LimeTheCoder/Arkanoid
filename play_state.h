@@ -46,10 +46,11 @@ private:
     Command *button_right;
     Command *default_command;
 
-    sf::Text scoreText;
     bool isGameOver;
 
     sf::Sprite backgroundSprite;
+    sf::Text score_text;
+    sf::Text pause_text;
 };
 
 #endif
