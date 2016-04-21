@@ -39,18 +39,17 @@ public:
 private:
     Ball ball;
     Paddle paddle;
+    std::vector<Block*> blocks;
 
     Command *current_command;
     Command *button_left;
     Command *button_right;
     Command *default_command;
 
-    std::vector<Block*> blocks;
-
     sf::Text scoreText;
+    bool isGameOver;
 
     sf::Sprite backgroundSprite;
-
 };
 
 #endif

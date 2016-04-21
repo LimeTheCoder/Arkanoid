@@ -106,6 +106,10 @@ unsigned Block::getScore() {
     return score;
 }
 
+void Block::resetScore() {
+    Block::score = 0;
+}
+
 /** Prototype pattern implementation **/
 
 BlockSpawner::BlockSpawner(float width, float height) {

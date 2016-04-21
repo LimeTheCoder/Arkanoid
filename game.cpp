@@ -2,6 +2,7 @@
 #include "play_state.h"
 #include "menu_state.h"
 #include "scores_state.h"
+#include "end_state.h"
 
 const unsigned WINDOW_WIDTH = 800;
 const unsigned WINDOW_HEIGHT = 600;
@@ -40,6 +41,8 @@ void Game::addState(States::Code state) {
         case States::Code::Scores:
             screens.push(new ScoresState(this));
             break;
+        case States::Code::EndGame:
+            screens.push(new EndState(this));
         default:
             break;
     }
@@ -118,4 +121,12 @@ void Game::saveScore(ScoreRecord &record) {
         scoresfile << (records[i].name + " " + std::to_string(records[i].scores) + " ");
 
     scoresfile.close();
+}
+
+void Game::setGameScore(unsigned score) {
+    player_score.scores = score;
+}
+
+unsigned Game::getPlayerScore() const {
+    return player_score.scores;
 }

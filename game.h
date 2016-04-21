@@ -21,7 +21,8 @@ namespace States {
         Menu,
         Game,
         Scores,
-        Pause
+        Pause,
+        EndGame
     };
 }
 
@@ -49,6 +50,8 @@ public:
     void loadHighScores(std::vector<ScoreRecord> &scores) const;
     void saveScore(ScoreRecord &record);
 
+    void setGameScore(unsigned score);
+    unsigned getPlayerScore() const;
 private:
     sf::RenderWindow window;
     const sf::Time time_per_frame;

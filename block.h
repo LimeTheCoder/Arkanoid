@@ -26,6 +26,7 @@ public:
     Block* clone();
 
     static unsigned getScore();
+    static void resetScore();
 
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;

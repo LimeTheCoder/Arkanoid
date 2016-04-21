@@ -25,8 +25,11 @@ PlayState::PlayState(Game *state_holder) :
         GameState(state_holder),
         ball(BALL_START_COORD_X, BALL_START_COORD_Y, BALL_RADIUS, BALL_VELOCITY),
         paddle(PADDLE_START_COORD_X, PADDLE_START_COORD_Y,
-               PADDLE_WIDTH, PADDLE_HEIGHT, PADDLE_VELOCITY)
+               PADDLE_WIDTH, PADDLE_HEIGHT, PADDLE_VELOCITY),
+        isGameOver(false)
 {
+    Block::resetScore();
+
     default_command = new DefaultCommand();
     button_left = new MoveLeftCommand();
     button_right = new MoveRightCommand();
@@ -76,10 +79,17 @@ PlayState::~PlayState() {
 void PlayState::processEvents() {
 	sf::Event event;
 
+    if(isGameOver) {
+        game->setGameScore(Block::getScore());
+        game->changeState(States::EndGame);
+        return;
+    }
+
 	while (game->getWindow()->pollEvent(event)) {
 	    switch (event.type) 
 	    {
 	        case sf::Event::Closed:
+                game->setGameScore(Block::getScore());
                 game->popState();
 	            return;
 
@@ -107,8 +117,10 @@ void PlayState::update() {
 
 	if(ball.getTop() < 0)
 		ball.setVelocityY(BALL_VELOCITY);
-	else if(ball.getBottom() > WINDOW_HEIGHT)
-		ball.setVelocityY(-BALL_VELOCITY);
+	else if(ball.getBottom() > WINDOW_HEIGHT) {
+        isGameOver = true;
+        return;
+    }
 
     if(current_command != nullptr)
         current_command->Execute(paddle);
