@@ -88,6 +88,8 @@ void PlayState::processEvents() {
 
     if(isGameOver) {
         game->setGameScore(Block::getScore());
+        game->saveScore();
+        game->setWinnerStatus(true);
         game->changeState(States::EndGame);
         return;
     }
@@ -147,6 +149,12 @@ void PlayState::update() {
         current_command->Execute(paddle);
 
     paddle.handleBallCollision(ball);
+
+    if(blocks.size() == 0) {
+        game->setWinnerStatus(true);
+        isGameOver = true;
+        return;
+    }
 
     for(Block* block : blocks) block->handleBallCollision(ball);
 

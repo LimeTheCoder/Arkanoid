@@ -15,9 +15,12 @@ const int HIGHSCORES_CNT = 8;
 Game::Game() :
         window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), TITLE),
         time_per_frame(TIME_PER_FRAME),
-        isPaused(false)
+        isPaused(false),
+        isWinner(false)
 {
     addState(States::Code::Menu);
+    player_score.scores = 0;
+    player_score.name = "You";
 }
 
 Game::~Game() {
@@ -114,14 +117,14 @@ void Game::loadHighScores(std::vector<ScoreRecord> &scores) const {
     datafile.close();
 }
 
-void Game::saveScore(ScoreRecord &record) {
+void Game::saveScore() {
     std::vector<ScoreRecord> records;
     loadHighScores(records);
 
-    if(record.scores <= records.back().scores)
+    if(player_score.scores <= records.back().scores)
         return;
 
-    records.push_back(record);
+    records.push_back(player_score);
     std::sort(records.begin(), records.end(),
               [](const ScoreRecord& left, const ScoreRecord& right) {
                   return left.scores > right.scores;});
@@ -139,4 +142,12 @@ void Game::setGameScore(unsigned score) {
 
 unsigned Game::getPlayerScore() const {
     return player_score.scores;
+}
+
+void Game::setWinnerStatus(bool is_win) {
+    isWinner = is_win;
+}
+
+bool Game::isWin() const {
+    return isWinner;
 }

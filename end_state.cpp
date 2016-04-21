@@ -18,7 +18,6 @@ namespace EndStateConstants {
 
 namespace EndStateNames {
     const std::string GameResults = "You've reached ";
-    const std::string GameOverTitle = "GAME OVER";
     const std::string BackToMainMenu = "Press esc to go back to main menu";
     const std::string PlayAgain = "Press space to play again";
 }
@@ -35,9 +34,12 @@ EndState::EndState(Game *state_holder) :
     std::string result = EndStateNames::GameResults +
             std::to_string(game->getPlayerScore()) + " points!";
 
+    if(game->isWin())
+        game_over.setString("YOU WINNER");
+    else
+        game_over.setString("GAME OVER");
 
     game_over.setFont(*font);
-    game_over.setString(EndStateNames::GameOverTitle);
     game_over.setColor(sf::Color::Yellow);
     game_over.setCharacterSize(EndStateConstants::GAME_OVER_TITLE_SIZE);
     game_over.setPosition(sf::Vector2f(EndStateConstants::GAME_OVER_TITLE_POSITION_X,

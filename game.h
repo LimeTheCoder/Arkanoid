@@ -48,13 +48,16 @@ public:
     ResourseManager& getResourseManager();
 
     void loadHighScores(std::vector<ScoreRecord> &scores) const;
-    void saveScore(ScoreRecord &record);
+    void saveScore();
 
     void setGameScore(unsigned score);
     unsigned getPlayerScore() const;
 
     void changePauseState();
     bool getPauseState() const;
+
+    void setWinnerStatus(bool is_win);
+    bool isWin() const;
 
 private:
     sf::RenderWindow window;
@@ -64,6 +67,7 @@ private:
     ResourseManager resourse_manager;
     ScoreRecord player_score;
     bool isPaused;
+    bool isWinner;
 };
 
 

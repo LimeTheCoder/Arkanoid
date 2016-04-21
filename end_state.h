@@ -25,7 +25,6 @@ namespace EndStateConstants {
 
 namespace EndStateNames {
     extern const std::string GameResults;
-    extern const std::string GameOverTitle;
     extern const std::string BackToMainMenu;
     extern const std::string PlayAgain;
 }
