@@ -42,12 +42,15 @@ PlayState::PlayState(Game *state_holder) :
     BlockSpawner spawner(BLOCK_WIDTH, BLOCK_HEIGHT);
     Block *curr = nullptr;
 
+    ball.attach(&paddle);
+
     for(int i = 0; i < BLOCK_COLUMNS_CNT; i++)
         for(int j = 0; j < BLOCK_ROWS_CNT; j++) {
             curr = spawner.getBlock(j % 3 + 1);
             curr->setPosition(sf::Vector2f((i + 1) * (BLOCK_WIDTH + 2) + 75,
                                            (j + 1) * (BLOCK_HEIGHT + 2) + 50));
             blocks.push_back(curr);
+            ball.attach(curr);
         }
 
     sf::Font *font = game->getResourseManager().getFont(Fonts::Score);
@@ -89,7 +92,6 @@ void PlayState::processEvents() {
     if(isGameOver) {
         game->setGameScore(Block::getScore());
         game->saveScore();
-        game->setWinnerStatus(true);
         game->changeState(States::EndGame);
         return;
     }
@@ -148,7 +150,6 @@ void PlayState::update() {
     if(current_command != nullptr)
         current_command->Execute(paddle);
 
-    paddle.handleBallCollision(ball);
 
     if(blocks.size() == 0) {
         game->setWinnerStatus(true);
@@ -156,20 +157,17 @@ void PlayState::update() {
         return;
     }
 
-    for(Block* block : blocks) block->handleBallCollision(ball);
-
+    ball.update();
+    paddle.update();
 
     for(int i = 0; i < blocks.size(); i++) {
         if(!blocks[i]->isAlive()) {
+            ball.detach(blocks[i]);
             delete blocks[i];
             blocks.erase(blocks.begin() + i);
             i--;
         }
     }
-
-
-    ball.update();
-    paddle.update();
 
     sf::String scores_string = sf::String("SCORE: ") +
             sf::String(std::to_string(Block::getScore()));

@@ -55,11 +55,11 @@ void Paddle::stayAtPlace() {
     setVelocityX(0.f);
 }
 
-void Paddle::handleBallCollision(Ball &ball) {
+void Paddle::handleBallPosChange(Ball &ball) {
 
     if(!isIntersects(ball)) return;
 
-    if(ball.getPosition().x < getPosition().x)
+    if(ball.getPosition().x < getPosition().x                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       )
         ball.setVelocityX(-ball.getMoveRate());
     else
         ball.setVelocityX(ball.getMoveRate());

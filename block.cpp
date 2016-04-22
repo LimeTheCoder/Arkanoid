@@ -70,7 +70,11 @@ void Block::onHint() {
     score++;
 }
 
-void Block::handleBallCollision(Ball &ball) {
+void Block::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    target.draw(*dynamic_cast<sf::RectangleShape*>(shape), states);
+}
+
+void Block::handleBallPosChange(Ball &ball) {
     if(!isIntersects(ball)) return;
 
     onHint();
@@ -90,10 +94,6 @@ void Block::handleBallCollision(Ball &ball) {
         ball.setVelocityX(ballFromLeft ? -ball.getMoveRate() : ball.getMoveRate());
     else
         ball.setVelocityY(ballFromTop ? -ball.getMoveRate() : ball.getMoveRate());
-}
-
-void Block::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    target.draw(*dynamic_cast<sf::RectangleShape*>(shape), states);
 }
 
 Block* Block::clone() {

@@ -2,8 +2,17 @@
 #define BALL_H
 
 #include "game_object.h"
+#include <list>
 
-class Ball : public MovableObject {
+class Ball;
+
+class IObserver {
+public:
+	virtual void handleBallPosChange(Ball &ball) = 0;
+};
+
+
+class Ball : public MovableObject {  // Observable
 public:
 	Ball(float start_x, float start_y, float radius, float ball_velocity);
     ~Ball();
@@ -16,7 +25,15 @@ public:
     float getRadius() const;
     void setRadius(float radius);
 
+    void attach(IObserver *observer);
+    void detach(IObserver *observer);
+
+    void update();
+
 private:
+    std::list<IObserver*> observers;
+    void notifyObservers();
+
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
 

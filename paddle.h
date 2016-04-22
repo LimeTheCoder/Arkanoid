@@ -5,7 +5,7 @@
 #include "ball.h"
 
 
-class Paddle : public MovableObject {
+class Paddle : public MovableObject, public IObserver {
 public:
     Paddle(float start_x, float start_y, float width, float height, float speed);
     ~Paddle();
@@ -24,7 +24,7 @@ public:
 
     void setSize(const sf::Vector2f &size);
 
-    void handleBallCollision(Ball &ball);
+    void handleBallPosChange(Ball &ball);
 
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;

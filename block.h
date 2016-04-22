@@ -3,7 +3,8 @@
 
 #include "ball.h"
 
-class Block : public GameObject {
+
+class Block : public GameObject, public IObserver {
 public:
     Block(float start_x, float start_y, float width, float height, int durability);
     ~Block();
@@ -21,7 +22,7 @@ public:
     bool isAlive() const;
     void onHint();
 
-    void handleBallCollision(Ball &ball);
+    void handleBallPosChange(Ball &ball);
 
     Block* clone();
 
