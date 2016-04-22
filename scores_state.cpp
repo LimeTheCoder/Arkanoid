@@ -57,16 +57,23 @@ ScoresState::ScoresState(Game *state_holder) : GameState(state_holder) {
         player.setString(vec[i].name);
         player.setCharacterSize(BODY_TEXT_SIZE);
         player.setFont(*font);
-        player.setColor(sf::Color::Blue);
         player.setPosition(sf::Vector2f(PLAYER_SUBTITLE_POS_X,
                                         PLAYER_SUBTITLE_POS_Y + MARGIN_TOP * (i + 1)));
 
         score.setFont(*font);
         score.setString(std::to_string(vec[i].scores));
-        score.setColor(sf::Color::Blue);
         score.setCharacterSize(BODY_TEXT_SIZE);
         score.setPosition(sf::Vector2f(PLAYER_SUBTITLE_POS_X + MARGIN_LEFT + MARGIN_TOP / 2.f,
                                        PLAYER_SUBTITLE_POS_Y + MARGIN_TOP * (i + 1)));
+
+        if(vec[i].name == game->getPlayerName()) {
+            player.setColor(sf::Color::Red);
+            score.setColor(sf::Color::Red);
+        }
+        else {
+            player.setColor(sf::Color::Blue);
+            score.setColor(sf::Color::Blue);
+        }
 
         highscores.push_back(std::make_pair(player, score));
     }

@@ -52,6 +52,7 @@ public:
 
     void setGameScore(unsigned score);
     unsigned getPlayerScore() const;
+    std::string getPlayerName() const;
 
     void changePauseState();
     bool getPauseState() const;

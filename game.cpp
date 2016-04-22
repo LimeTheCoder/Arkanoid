@@ -144,6 +144,10 @@ unsigned Game::getPlayerScore() const {
     return player_score.scores;
 }
 
+std::string Game::getPlayerName() const {
+    return player_score.name;
+}
+
 void Game::setWinnerStatus(bool is_win) {
     isWinner = is_win;
 }
