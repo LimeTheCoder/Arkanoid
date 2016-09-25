@@ -11,8 +11,13 @@ public:
 	virtual void handleBallPosChange(Ball &ball) = 0;
 };
 
+class IObservalble {
+public:
+    virtual void attach(IObserver *observer) = 0;
+    virtual void detach(IObserver *observer) = 0;
+};
 
-class Ball : public MovableObject {  // Observable
+class Ball : public MovableObject, public IObservalble {
 public:
 	Ball(float start_x, float start_y, float radius, float ball_velocity);
     ~Ball();
