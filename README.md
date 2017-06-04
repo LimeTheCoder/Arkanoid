@@ -1,7 +1,7 @@
 # Arkanoid
 Arkanoid game based on design patterns
-##Patterns
-###Facade
+## Patterns
+### Facade
 Facade pattern hides the complexities of the system and provides an interface to the client using which the client can access the system.
 * Class diagram
 
@@ -33,7 +33,7 @@ sf::Font * ResourseManager::getFont(Fonts::Code code) {
     return font_manager.getFont(code);
 }
 ```
-###Flyweight
+### Flyweight
 Flyweight pattern tries to reuse already existing similar kind objects by storing them and creates new object when no matching object is found.
 
 * Code sample
@@ -69,7 +69,7 @@ sf::Texture *TextureManager::getTexture(Textures::Code code) {
     return texture;
 }
 ```
-###Command
+### Command
 Command pattern encapsulates a request or as an object, thereby letting you parametrize clients with different requests, queue or log requests, and support undoable operations.
 
 * Class diagram
@@ -120,7 +120,7 @@ public:
         current_command = default_command;
 ```
 
-##State pattern
+## State pattern
 In State pattern, we create objects which represent various states and a context object whose behavior varies as its state object changes.
 
 * Class diagram
@@ -235,14 +235,14 @@ Block* BlockSpawner::getBlock(int type) const {
 ```
 
 ## Screens
-###Main menu
+### Main menu
 ![screen](../master/screens/menu.png)
 
-###Highscores
+### Highscores
 ![screen](../master/screens/scores.png)
 
-###Game process
+### Game process
 ![screen](../master/screens/game.png)
 
-###Game over
+### Game over
 ![screen](../master/screens/over.png)
